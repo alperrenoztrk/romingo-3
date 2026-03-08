@@ -62,7 +62,7 @@ export default function HomePage() {
           </button>
 
           <button
-            onClick={() => navigate("/app/kahoot")}
+            onClick={() => navigate("/kahoot")}
             className="rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all w-full gradient-hero shadow-button-primary"
           >
             <Trophy className="w-8 h-8 text-primary-foreground mb-2" />
