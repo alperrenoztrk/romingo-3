@@ -54,7 +54,7 @@ export default function HomePage() {
           </button>
 
           <button
-            onClick={() => navigate("/app/translate")}
+            onClick={() => navigate("/translate")}
             className="gradient-hero shadow-button-primary rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
           >
             <Languages className="w-8 h-8 text-primary-foreground mb-2" />
