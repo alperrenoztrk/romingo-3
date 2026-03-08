@@ -78,7 +78,7 @@ export default function HomePage() {
           </button>
 
           <button
-            onClick={() => navigate("/app/grammar")}
+            onClick={() => navigate("/grammar")}
             className="col-span-2 gradient-gold shadow-button-gold rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
           >
             <BookOpenText className="w-8 h-8 text-primary-foreground mb-2" />

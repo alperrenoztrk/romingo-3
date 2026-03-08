@@ -532,7 +532,7 @@ export default function LessonPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <div className="flex items-center gap-3 px-4 py-3 bg-card border-b border-border">
         <button
-          onClick={() => navigate("/app/learn")}
+          onClick={() => navigate("/learn")}
           className="p-1 rounded-full hover:bg-muted transition-colors"
         >
           <X className="w-6 h-6 text-muted-foreground" />
