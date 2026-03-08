@@ -487,7 +487,7 @@ export default function LessonPage() {
         xpEarned={totalXpReward}
         isPerfectLesson={isPerfectLesson}
         onRetryWrongAnswers={stars >= 1 && retryExerciseIndexes.length > 0 ? handleRetryWrongAnswers : undefined}
-        onContinue={() => navigate("/app/learn")}
+        onContinue={() => navigate("/learn")}
       />
     );
   }
