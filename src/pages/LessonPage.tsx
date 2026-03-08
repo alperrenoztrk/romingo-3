@@ -391,7 +391,7 @@ export default function LessonPage() {
 
   useEffect(() => {
     if (lesson && !isUnlocked) {
-      navigate("/app/learn", { replace: true });
+      navigate("/learn", { replace: true });
     }
   }, [isUnlocked, lesson, navigate]);
 
