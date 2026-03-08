@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BookOpenText, Languages, Target, Video, Trophy } from "lucide-react";
+import { BookOpenText, Languages, Target, Video, Trophy, FileText } from "lucide-react";
 import { useAuthProfile } from "@/hooks/useAuthProfile";
 
 export default function HomePage() {
@@ -49,11 +49,18 @@ export default function HomePage() {
 
           <button
             onClick={() => navigate("/grammar")}
-            className="col-span-2 gradient-gold shadow-button-gold rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
+            className="gradient-gold shadow-button-gold rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
           >
             <BookOpenText className="w-8 h-8 text-primary-foreground mb-2" />
             <div className="text-primary-foreground font-extrabold text-sm">Dil Bilgisi</div>
-            <div className="text-primary-foreground/80 text-xs font-semibold mt-1">Rumence dil bilgisi konu anlatımı</div>
+          </button>
+
+          <button
+            onClick={() => navigate("/exams")}
+            className="gradient-hero shadow-button-primary rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
+          >
+            <FileText className="w-8 h-8 text-primary-foreground mb-2" />
+            <div className="text-primary-foreground font-extrabold text-sm">Çıkmış Sorular</div>
           </button>
         </div>
       </div>
