@@ -72,6 +72,8 @@ function AppContent() {
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/kahoot" element={<KahootPage />} />
         <Route path="/grammar" element={<GrammarPage />} />
+        <Route path="/exams" element={<ExamListPage />} />
+        <Route path="/exams/:examId" element={<ExamPage />} />
         <Route path="/lesson/:id" element={<LessonPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
