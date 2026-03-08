@@ -81,7 +81,7 @@ export default function KahootPage() {
       </button>
 
       <button
-        onClick={() => navigate("/app")}
+        onClick={() => navigate("/")}
         className="w-full bg-card rounded-2xl p-4 shadow-card font-extrabold text-foreground active:translate-y-1 transition-transform"
       >
         ← Anasayfaya Dön

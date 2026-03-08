@@ -287,7 +287,7 @@ export default function LearnPage() {
       return;
     }
 
-    const lessonUrl = tutorialView ? `/app/lesson/${lessonId}?skipIntro=1` : `/app/lesson/${lessonId}`;
+    const lessonUrl = tutorialView ? `/lesson/${lessonId}?skipIntro=1` : `/lesson/${lessonId}`;
     navigate(lessonUrl);
   };
 
