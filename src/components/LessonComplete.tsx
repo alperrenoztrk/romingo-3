@@ -4,7 +4,6 @@ import type { LessonData } from "../data/lessons";
 
 interface Props {
   lesson: LessonData;
-  mascotId?: MascotId;
   correctCount: number;
   totalCount: number;
   elapsedSeconds: number;
