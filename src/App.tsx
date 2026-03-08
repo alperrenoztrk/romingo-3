@@ -21,6 +21,8 @@ import DailyGoalsSettingsPage from "./pages/DailyGoalsSettingsPage";
 import VideosPage from "./pages/VideosPage";
 import KahootPage from "./pages/KahootPage";
 import GrammarPage from "./pages/GrammarPage";
+import ExamListPage from "./pages/ExamListPage";
+import ExamPage from "./pages/ExamPage";
 
 const queryClient = new QueryClient();
 
