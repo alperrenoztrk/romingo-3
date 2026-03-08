@@ -22,7 +22,6 @@ function formatDuration(totalSeconds: number) {
 
 export default function LessonComplete({
   lesson,
-  mascotId = "panda",
   correctCount,
   totalCount,
   elapsedSeconds,
