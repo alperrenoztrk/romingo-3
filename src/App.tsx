@@ -75,6 +75,7 @@ function AppContent() {
         <Route path="/grammar" element={<GrammarPage />} />
         <Route path="/exams" element={<ExamListPage />} />
         <Route path="/exams/:examId" element={<ExamPage />} />
+        <Route path="/verbs" element={<VerbConjugationsPage />} />
         <Route path="/lesson/:id" element={<LessonPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

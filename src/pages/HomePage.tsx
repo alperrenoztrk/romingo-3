@@ -62,6 +62,14 @@ export default function HomePage() {
             <FileText className="w-8 h-8 text-primary-foreground mb-2" />
             <div className="text-primary-foreground font-extrabold text-sm">Çıkmış Sorular</div>
           </button>
+
+          <button
+            onClick={() => navigate("/verbs")}
+            className="gradient-sky shadow-button-sky rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
+          >
+            <BookOpen className="w-8 h-8 text-primary-foreground mb-2" />
+            <div className="text-primary-foreground font-extrabold text-sm">Fiil Çekimleri</div>
+          </button>
         </div>
       </div>
     </div>
