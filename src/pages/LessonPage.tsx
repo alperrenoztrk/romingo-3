@@ -10,7 +10,7 @@ import ListeningEx from "../components/exercises/ListeningEx";
 import SentenceBuilderEx from "../components/exercises/SentenceBuilderEx";
 import ListenAndRepeatEx from "../components/exercises/ListenAndRepeatEx";
 import LessonComplete from "../components/LessonComplete";
-import MascotFace from "@/components/MascotFace";
+// mascot removed
 import { addTodayProgress } from "../lib/weeklyProgress";
 import { orderedLessonIds } from "../data/lessonCatalog";
 import { getLessonProgress, isLessonUnlocked, saveLessonCompletion } from "../lib/lessonProgress";
@@ -479,7 +479,6 @@ export default function LessonPage() {
     return (
       <LessonComplete
         lesson={lesson}
-        mascotId={currentMascot.id}
         correctCount={correctCount}
         totalCount={exerciseIndexes.length}
         elapsedSeconds={elapsedSeconds}
@@ -603,17 +602,10 @@ export default function LessonPage() {
 
             {exercisePrompt && (
               <div
-                className={`relative mb-4 rounded-2xl border px-3 pb-2 pt-8 bg-gradient-to-r shadow-[0_10px_22px_-14px_rgba(0,0,0,0.7)] ${currentMascot.gradient} ${currentMascot.border}`}
+                className={`relative mb-4 rounded-2xl border px-3 py-3 bg-gradient-to-r shadow-[0_10px_22px_-14px_rgba(0,0,0,0.7)] ${currentMascot.gradient} ${currentMascot.border}`}
                 aria-live="polite"
               >
-                <div className="absolute -top-6 left-3">
-                  <div className="relative shrink-0">
-                    <div className="relative grid h-20 w-20 place-items-center">
-                      <MascotFace mascotId={currentMascot.id} mascotName={currentMascot.name} />
-                    </div>
-                  </div>
-                </div>
-                <p className="pl-[5.6rem] text-lg font-black text-foreground">{exercisePrompt}</p>
+                <p className="text-lg font-black text-foreground">{exercisePrompt}</p>
               </div>
             )}
 

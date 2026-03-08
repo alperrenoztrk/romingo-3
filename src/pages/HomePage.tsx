@@ -1,8 +1,6 @@
-import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BookOpenText, Languages, Target, Video, Trophy } from "lucide-react";
 import { useAuthProfile } from "@/hooks/useAuthProfile";
-import MascotFace, { type MascotId } from "@/components/MascotFace";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -11,39 +9,11 @@ export default function HomePage() {
   const { profile: authProfile } = useAuthProfile();
   const displayName = authProfile?.fullName?.trim() || "Kullanıcı";
   const greeting = `${baseGreeting} ${displayName}`;
-  const mascots = useMemo(
-    () => [
-      { id: "toucan" as MascotId, name: "Tukan" },
-      { id: "panda" as MascotId, name: "Panda" },
-      { id: "flamingo" as MascotId, name: "Flamingo" },
-      { id: "cat" as MascotId, name: "Kedi" },
-    ],
-    [],
-  );
-  const [activeMascotIndex, setActiveMascotIndex] = useState(0);
-  const [mascotRotation, setMascotRotation] = useState(0);
-  const activeMascot = mascots[activeMascotIndex];
-
-  const handleMascotClick = () => {
-    setMascotRotation((currentRotation) => currentRotation + 360);
-    setActiveMascotIndex((currentIndex) => (currentIndex + 1) % mascots.length);
-  };
 
   return (
     <div className="pb-20">
       <div className="px-4 py-6 space-y-4 max-w-lg mx-auto">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={handleMascotClick}
-            className="transition-transform duration-700 ease-out active:scale-95 w-36 h-36 flex-shrink-0"
-            style={{ transform: `rotate(${mascotRotation}deg)` }}
-            aria-label={`${activeMascot.name} maskotunu döndür`}
-          >
-            <MascotFace mascotId={activeMascot.id} mascotName={activeMascot.name} className="w-full h-full drop-shadow-lg" />
-          </button>
-          <h1 className="text-2xl font-black text-foreground">{greeting}!</h1>
-        </div>
+        <h1 className="text-2xl font-black text-foreground">{greeting}!</h1>
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => navigate("/learn?view=tutorial&practice=adaptive")}
