@@ -10,7 +10,7 @@ import ListeningEx from "../components/exercises/ListeningEx";
 import SentenceBuilderEx from "../components/exercises/SentenceBuilderEx";
 import ListenAndRepeatEx from "../components/exercises/ListenAndRepeatEx";
 import LessonComplete from "../components/LessonComplete";
-import MascotFace from "@/components/MascotFace";
+// mascot removed
 import { addTodayProgress } from "../lib/weeklyProgress";
 import { orderedLessonIds } from "../data/lessonCatalog";
 import { getLessonProgress, isLessonUnlocked, saveLessonCompletion } from "../lib/lessonProgress";
