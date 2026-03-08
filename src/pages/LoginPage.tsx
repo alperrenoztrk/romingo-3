@@ -1,6 +1,5 @@
-import { lovable } from "@/integrations/lovable/index";
 import { supabase } from "@/integrations/supabase/client";
-import { CheckCircle2, Globe2, GraduationCap, PlayCircle, Sparkles, UserPlus } from "lucide-react";
+import { CheckCircle2, Globe2, GraduationCap, PlayCircle, Sparkles, UserPlus, LogIn } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -31,10 +30,13 @@ const STATS = [
 type Tab = "login" | "register";
 
 export default function LoginPage() {
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [isAppleLoading, setIsAppleLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("login");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+
+  // Login form state
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   // Register form state
   const [username, setUsername] = useState("");
@@ -45,25 +47,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const handleAppleLogin = async () => {
-    setIsAppleLoading(true);
-    const { error } = await lovable.auth.signInWithOAuth("apple", {
-      redirect_uri: window.location.origin,
-    });
-    if (error) {
-      console.error("Apple ile giriş başlatılamadı", error);
-      setIsAppleLoading(false);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginEmail.trim() || !loginPassword) {
+      toast({ title: "Hata", description: "E-posta ve parola zorunludur.", variant: "destructive" });
+      return;
     }
-  };
-
-  const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
-    const { error } = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    setIsLoggingIn(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginEmail.trim(),
+      password: loginPassword,
     });
+    setIsLoggingIn(false);
     if (error) {
-      console.error("Google ile giriş başlatılamadı", error);
-      setIsGoogleLoading(false);
+      toast({ title: "Giriş başarısız", description: error.message, variant: "destructive" });
     }
   };
 
@@ -130,6 +127,7 @@ export default function LoginPage() {
             </button>
             <a
               href="#auth-panel"
+              onClick={() => setActiveTab("login")}
               className="inline-flex items-center gap-2 rounded-full bg-[#f15b67] px-4 py-2 text-sm font-bold text-white shadow-[0_6px_16px_-8px_rgba(241,91,103,0.8)] transition hover:opacity-90"
             >
               Giriş yap
@@ -191,68 +189,51 @@ export default function LoginPage() {
                   <h2 className="text-xl font-black text-[#22253a]">Hemen giriş yap</h2>
                   <p className="mt-1 text-sm font-medium text-[#595f76]">Kaldığın yerden devam etmek için hesabınla giriş yap.</p>
 
-                  <div className="mt-5 space-y-3">
+                  <form onSubmit={handleLogin} className="mt-5 space-y-3">
+                    <div>
+                      <label className="mb-1 block text-xs font-bold text-[#3a3e56]">E-posta *</label>
+                      <input
+                        type="email"
+                        required
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        className="w-full rounded-xl border border-[#eaded9] bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#f15b67] focus:ring-2 focus:ring-[#f15b6730]"
+                        placeholder="ornek@email.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-1 block text-xs font-bold text-[#3a3e56]">Parola *</label>
+                      <input
+                        type="password"
+                        required
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        className="w-full rounded-xl border border-[#eaded9] bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#f15b67] focus:ring-2 focus:ring-[#f15b6730]"
+                      />
+                    </div>
                     <button
-                      type="button"
-                      onClick={handleGoogleLogin}
-                      disabled={isGoogleLoading}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#eaded9] bg-white py-3 font-extrabold text-[#262b42] transition hover:bg-[#fff6f2] disabled:opacity-70"
+                      type="submit"
+                      disabled={isLoggingIn}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#f15b67] py-3 font-extrabold text-white transition hover:opacity-90 disabled:opacity-70"
                     >
-                      <span className="text-base" aria-hidden="true">G</span>
-                      {isGoogleLoading ? "Yönlendiriliyor..." : "Google ile devam et"}
+                      <LogIn className="h-4 w-4" />
+                      {isLoggingIn ? "Giriş yapılıyor..." : "Giriş Yap"}
                     </button>
+                  </form>
 
-                    <button
-                      type="button"
-                      onClick={handleAppleLogin}
-                      disabled={isAppleLoading}
-                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-black bg-black py-3 font-extrabold text-white transition hover:opacity-90 disabled:opacity-70"
-                    >
-                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-                      </svg>
-                      {isAppleLoading ? "Yönlendiriliyor..." : "Apple ile devam et"}
+                  <p className="mt-4 text-center text-xs text-[#8b8fa6]">
+                    Hesabın yok mu?{" "}
+                    <button type="button" onClick={() => setActiveTab("register")} className="font-bold text-[#f15b67] hover:underline">
+                      Kayıt ol
                     </button>
-
-                  </div>
+                  </p>
                 </>
               ) : (
                 <>
                   <h2 className="text-xl font-black text-[#22253a]">Hesap oluştur</h2>
                   <p className="mt-1 text-sm font-medium text-[#595f76]">Romingo Akademi ailesine katıl.</p>
 
-                  {/* OAuth register */}
-                  <div className="mt-4 flex gap-2">
-                    <button
-                      type="button"
-                      onClick={handleGoogleLogin}
-                      disabled={isGoogleLoading}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-[#eaden9] bg-white py-2.5 text-sm font-bold text-[#262b42] transition hover:bg-[#fff6f2] disabled:opacity-70"
-                    >
-                      <span aria-hidden="true">G</span>
-                      {isGoogleLoading ? "..." : "Google"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleAppleLogin}
-                      disabled={isAppleLoading}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-black bg-black py-2.5 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-70"
-                    >
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-                      </svg>
-                      {isAppleLoading ? "..." : "Apple"}
-                    </button>
-                  </div>
-
-                  <div className="my-4 flex items-center gap-3">
-                    <div className="h-px flex-1 bg-[#f0ddd5]" />
-                    <span className="text-xs font-semibold text-[#a8abbe]">veya</span>
-                    <div className="h-px flex-1 bg-[#f0ddd5]" />
-                  </div>
-
-                  {/* Registration form */}
-                  <form onSubmit={handleRegister} className="space-y-3">
+                  <form onSubmit={handleRegister} className="mt-4 space-y-3">
                     <div>
                       <label className="mb-1 block text-xs font-bold text-[#3a3e56]">Kullanıcı Adı *</label>
                       <input
@@ -362,7 +343,7 @@ export default function LoginPage() {
           <div className="rounded-3xl border border-[#f4dfd7] bg-white p-6 sm:p-8">
             <div className="mb-6 flex items-center gap-2 text-[#f15b67]">
               <PlayCircle className="h-5 w-5" />
-              <h3 className="text-lg font-black">Web arayüzünden gelen öne çıkan deneyimler</h3>
+              <h3 className="text-lg font-black">Öne çıkan deneyimler</h3>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
