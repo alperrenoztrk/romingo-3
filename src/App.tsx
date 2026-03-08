@@ -23,6 +23,7 @@ import KahootPage from "./pages/KahootPage";
 import GrammarPage from "./pages/GrammarPage";
 import ExamListPage from "./pages/ExamListPage";
 import ExamPage from "./pages/ExamPage";
+import VerbConjugationsPage from "./pages/VerbConjugationsPage";
 
 const queryClient = new QueryClient();
 
