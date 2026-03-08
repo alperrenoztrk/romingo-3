@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BookOpenText, Languages, Target, Video, Trophy, FileText } from "lucide-react";
+import { BookOpenText, Languages, Target, Video, Trophy, FileText, BookOpen } from "lucide-react";
 import { useAuthProfile } from "@/hooks/useAuthProfile";
 
 export default function HomePage() {
