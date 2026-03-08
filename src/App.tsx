@@ -8,7 +8,6 @@ import { applyDarkMode, getStoredPreferences } from "@/lib/preferences";
 import { setActiveProfileScope } from "@/lib/profileScope";
 import { supabase } from "@/integrations/supabase/client";
 import BottomNav from "./components/BottomNav";
-import WebsitePage from "./pages/WebsitePage";
 import HomePage from "./pages/HomePage";
 import LearnPage from "./pages/LearnPage";
 import ShopPage from "./pages/ShopPage";
@@ -25,11 +24,6 @@ import DailyGoalsSettingsPage from "./pages/DailyGoalsSettingsPage";
 import VideosPage from "./pages/VideosPage";
 import KahootPage from "./pages/KahootPage";
 import GrammarPage from "./pages/GrammarPage";
-import BlogPage from "./pages/BlogPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import DeliveryReturnPolicyPage from "./pages/DeliveryReturnPolicyPage";
-import TermsOfUsePage from "./pages/TermsOfUsePage";
-import DistanceSalesContractPage from "./pages/DistanceSalesContractPage";
 
 const queryClient = new QueryClient();
 
@@ -39,8 +33,7 @@ const SESSION_KEY = "romingo_session_mode";
 
 function AppContent() {
   const location = useLocation();
-  const hideNav = location.pathname.startsWith("/app/lesson/");
-  const isWebsite = !location.pathname.startsWith("/app");
+  const hideNav = location.pathname.startsWith("/lesson/");
   const [sessionMode, setSessionMode] = useState<SessionMode>("logged_out");
   const [showSplash, setShowSplash] = useState(true);
 
@@ -111,42 +104,30 @@ function AppContent() {
     );
   }
 
-  if (sessionMode === "logged_out" && location.pathname.startsWith("/app")) {
+  if (sessionMode === "logged_out") {
     return <LoginPage />;
   }
 
   return (
     <div className="min-h-screen bg-background">
       <Routes>
-        <Route path="/" element={<WebsitePage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/gizlilik-politikasi" element={<PrivacyPolicyPage />} />
-        <Route path="/teslimat-ve-iade-sartlari" element={<DeliveryReturnPolicyPage />} />
-        <Route path="/kullanim-sartlari" element={<TermsOfUsePage />} />
-        <Route path="/mesafeli-satis-sozlesmesi" element={<DistanceSalesContractPage />} />
-        {sessionMode !== "logged_out" ? (
-          <>
-            <Route path="/app" element={<HomePage />} />
-            <Route path="/app/learn" element={<LearnPage />} />
-            <Route path="/app/shop" element={<ShopPage />} />
-            <Route path="/app/league" element={<LeaguePage />} />
-            <Route path="/app/profile" element={<ProfilePage onLogout={handleLogout} />} />
-            <Route path="/app/settings" element={<SettingsPage />} />
-            <Route path="/app/settings/profile" element={<ProfileSettingsPage />} />
-            <Route path="/app/settings/security" element={<SecuritySettingsPage />} />
-            <Route path="/app/settings/daily-goals" element={<DailyGoalsSettingsPage />} />
-            <Route path="/app/translate" element={<TranslationPage />} />
-            <Route path="/app/videos" element={<VideosPage />} />
-            <Route path="/app/kahoot" element={<KahootPage />} />
-            <Route path="/app/grammar" element={<GrammarPage />} />
-            <Route path="/app/lesson/:id" element={<LessonPage />} />
-          </>
-        ) : (
-          <Route path="/app/*" element={<LoginPage />} />
-        )}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/learn" element={<LearnPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/league" element={<LeaguePage />} />
+        <Route path="/profile" element={<ProfilePage onLogout={handleLogout} />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/settings/profile" element={<ProfileSettingsPage />} />
+        <Route path="/settings/security" element={<SecuritySettingsPage />} />
+        <Route path="/settings/daily-goals" element={<DailyGoalsSettingsPage />} />
+        <Route path="/translate" element={<TranslationPage />} />
+        <Route path="/videos" element={<VideosPage />} />
+        <Route path="/kahoot" element={<KahootPage />} />
+        <Route path="/grammar" element={<GrammarPage />} />
+        <Route path="/lesson/:id" element={<LessonPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {!hideNav && !isWebsite && <BottomNav />}
+      {!hideNav && <BottomNav />}
     </div>
   );
 }
