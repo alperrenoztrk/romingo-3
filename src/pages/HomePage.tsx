@@ -70,7 +70,7 @@ export default function HomePage() {
           </button>
 
           <button
-            onClick={() => navigate("/app/videos")}
+            onClick={() => navigate("/videos")}
             className="gradient-success shadow-button-success rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all w-full"
           >
             <Video className="w-8 h-8 text-primary-foreground mb-2" />
