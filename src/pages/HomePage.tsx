@@ -46,7 +46,7 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-2 gap-3">
           <button
-            onClick={() => navigate("/app/learn?view=tutorial&practice=adaptive")}
+            onClick={() => navigate("/learn?view=tutorial&practice=adaptive")}
             className="gradient-sky shadow-button-sky rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
           >
             <Target className="w-8 h-8 text-primary-foreground mb-2" />
