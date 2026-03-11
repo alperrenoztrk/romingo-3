@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { BookOpenText, Languages, Target, Video, Trophy, FileText, BookOpen } from "lucide-react";
 import { useAuthProfile } from "@/hooks/useAuthProfile";
+import MascotFace from "@/components/MascotFace";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -13,7 +14,10 @@ export default function HomePage() {
   return (
     <div className="pb-20">
       <div className="px-4 py-6 space-y-4 max-w-lg mx-auto">
-        <h1 className="text-2xl font-black text-foreground">{greeting}!</h1>
+        <div className="flex items-center gap-3">
+          <MascotFace index={0} className="w-14 h-14" />
+          <h1 className="text-2xl font-black text-foreground">{greeting}!</h1>
+        </div>
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => navigate("/learn?view=tutorial&practice=adaptive")}
