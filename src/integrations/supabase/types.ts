@@ -147,22 +147,58 @@ export type Database = {
           },
         ]
       }
-      profiles: {
+      league_entries: {
         Row: {
           created_at: string
           id: string
           updated_at: string
-          username: string
+          user_id: string
+          week_key: string
+          xp: number
         }
         Insert: {
           created_at?: string
-          id: string
+          id?: string
           updated_at?: string
-          username?: string
+          user_id: string
+          week_key: string
+          xp?: number
         }
         Update: {
           created_at?: string
           id?: string
+          updated_at?: string
+          user_id?: string
+          week_key?: string
+          xp?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_emoji: string
+          created_at: string
+          display_name: string
+          id: string
+          league_visible: boolean
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          avatar_emoji?: string
+          created_at?: string
+          display_name?: string
+          id: string
+          league_visible?: boolean
+          updated_at?: string
+          username?: string
+        }
+        Update: {
+          avatar_emoji?: string
+          created_at?: string
+          display_name?: string
+          id?: string
+          league_visible?: boolean
           updated_at?: string
           username?: string
         }
