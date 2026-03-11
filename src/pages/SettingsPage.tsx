@@ -1,19 +1,39 @@
 import StatsBar from "../components/StatsBar";
-import { ChevronRight, Globe, Bell, Moon, Shield, UserCircle } from "lucide-react";
+import { ChevronRight, Globe, Bell, Moon, Shield, UserCircle, Trophy } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { applyDarkMode, getStoredPreferences, savePreferences } from "@/lib/preferences";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function SettingsPage() {
   const { toast } = useToast();
   const [preferences, setPreferences] = useState(getStoredPreferences);
+  const [leagueVisible, setLeagueVisible] = useState(true);
+  const [leagueLoading, setLeagueLoading] = useState(true);
 
   useEffect(() => {
     savePreferences(preferences);
     applyDarkMode(preferences.darkMode);
   }, [preferences]);
+
+  useEffect(() => {
+    const fetchVisibility = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setLeagueLoading(false); return; }
+
+      const { data } = await supabase
+        .from("profiles")
+        .select("league_visible")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (data) setLeagueVisible(data.league_visible);
+      setLeagueLoading(false);
+    };
+    fetchVisibility();
+  }, []);
 
   const handleSwitchChange = (key: keyof typeof preferences, value: boolean) => {
     setPreferences((prev) => ({ ...prev, [key]: value }));
@@ -23,6 +43,22 @@ export default function SettingsPage() {
         title: value ? "Karanlık mod açık" : "Karanlık mod kapalı",
       });
     }
+  };
+
+  const handleLeagueVisibilityChange = async (value: boolean) => {
+    setLeagueVisible(value);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    await supabase
+      .from("profiles")
+      .update({ league_visible: value })
+      .eq("id", user.id);
+
+    toast({
+      title: value ? "Ligde görünürsün" : "Ligde gizlisin",
+      description: value ? "Diğer kullanıcılar seni sıralamada görebilir." : "Sıralamada görünmeyeceksin.",
+    });
   };
 
   return (
@@ -97,6 +133,21 @@ export default function SettingsPage() {
             <Switch
               checked={preferences.dailyReminder}
               onCheckedChange={(value) => handleSwitchChange("dailyReminder", value)}
+            />
+          </div>
+
+          <div className="flex items-center justify-between rounded-xl bg-muted/40 p-3">
+            <div className="flex items-center gap-3">
+              <Trophy className="w-5 h-5 text-gold" />
+              <div>
+                <div className="font-bold text-sm text-foreground">Ligde Görün</div>
+                <div className="text-xs text-muted-foreground">Sıralamada diğer kullanıcılara görün</div>
+              </div>
+            </div>
+            <Switch
+              disabled={leagueLoading}
+              checked={leagueVisible}
+              onCheckedChange={handleLeagueVisibilityChange}
             />
           </div>
         </section>

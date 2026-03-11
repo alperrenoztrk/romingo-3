@@ -1,5 +1,6 @@
 import { addXpToProfile, getTotalXp } from "./liveProfile";
 import { getActiveProfileScope } from "./profileScope";
+import { addLeagueXpToDb } from "@/hooks/useLeagueData";
 
 const LEAGUE_STATE_KEY_PREFIX = "romingo.leagueState.v1";
 
@@ -231,6 +232,11 @@ export function addLeagueXp(amount: number) {
   state.userXp = nextTotalXp;
   saveLeagueState(state);
   window.dispatchEvent(new Event("romingo:league-updated"));
+
+  // Also persist to database for real league
+  if (amount > 0) {
+    addLeagueXpToDb(amount).catch(() => {});
+  }
 }
 
 export function getLeagueMeta() {
