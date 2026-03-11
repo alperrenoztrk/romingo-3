@@ -41,14 +41,14 @@ describe("HomePage", () => {
     expect(screen.getByText("3 hafta önce")).toBeInTheDocument();
     expect(screen.getByText("4 hafta önce")).toBeInTheDocument();
   });
-  it("shows Kahoot button copy on homepage", () => {
+  it("shows Romi Quiz button copy on homepage", () => {
     render(
       <MemoryRouter>
         <HomePage />
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole("button", { name: /Kahoot/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Romi Quiz/i })).toBeInTheDocument();
   });
 
 });
