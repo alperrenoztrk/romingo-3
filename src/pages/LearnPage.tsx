@@ -345,9 +345,6 @@ export default function LearnPage() {
         <h1 className="text-xl font-black text-foreground text-center mb-2">
           {tutorialView ? "🦩 Alıştırma" : "🦩 Rumence Öğren"}
         </h1>
-        <p className="text-center text-muted-foreground text-sm font-semibold mb-8">
-          {tutorialView ? "" : "A1 - C1 Seviye"}
-        </p>
 
         {tutorialView && (
           <div className="space-y-4">
