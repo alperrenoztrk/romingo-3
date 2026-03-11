@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BookOpenText, Languages, Target, Video, Trophy, FileText, BookOpen } from "lucide-react";
+import { BookOpenText, Languages, Target, Video, Trophy } from "lucide-react";
 import { useAuthProfile } from "@/hooks/useAuthProfile";
 import MascotFace from "@/components/MascotFace";
 
@@ -59,21 +59,6 @@ export default function HomePage() {
             <div className="text-primary-foreground font-extrabold text-sm">Dil Bilgisi</div>
           </button>
 
-          <button
-            onClick={() => navigate("/exams")}
-            className="gradient-hero shadow-button-primary rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
-          >
-            <FileText className="w-8 h-8 text-primary-foreground mb-2" />
-            <div className="text-primary-foreground font-extrabold text-sm">Çıkmış Sorular</div>
-          </button>
-
-          <button
-            onClick={() => navigate("/verbs")}
-            className="gradient-sky shadow-button-sky rounded-2xl p-4 text-left active:translate-y-1 active:shadow-none transition-all"
-          >
-            <BookOpen className="w-8 h-8 text-primary-foreground mb-2" />
-            <div className="text-primary-foreground font-extrabold text-sm">Fiil Çekimleri</div>
-          </button>
         </div>
       </div>
     </div>
