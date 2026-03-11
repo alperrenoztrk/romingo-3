@@ -232,6 +232,11 @@ export function addLeagueXp(amount: number) {
   state.userXp = nextTotalXp;
   saveLeagueState(state);
   window.dispatchEvent(new Event("romingo:league-updated"));
+
+  // Also persist to database for real league
+  if (amount > 0) {
+    addLeagueXpToDb(amount).catch(() => {});
+  }
 }
 
 export function getLeagueMeta() {
