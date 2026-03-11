@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Zap, Target, Clock3 } from "lucide-react";
 import type { LessonData } from "../data/lessons";
+import MascotFace from "./MascotFace";
 
 interface Props {
   lesson: LessonData;
