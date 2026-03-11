@@ -1,5 +1,6 @@
 import { addXpToProfile, getTotalXp } from "./liveProfile";
 import { getActiveProfileScope } from "./profileScope";
+import { addLeagueXpToDb } from "@/hooks/useLeagueData";
 
 const LEAGUE_STATE_KEY_PREFIX = "romingo.leagueState.v1";
 
